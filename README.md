@@ -6,7 +6,7 @@ createProduct.js--->create product form
 
 productList.js--->one by one details of product
 
-in a key folder-->mongourl
+in a config folder there is key file.it has mongourl
 
 model folder-->productSchema
 
