@@ -20,3 +20,13 @@ run concurrently -->npm run dev
 frontend run-->cd client-->npm run
 
 back end run-->npm run
+
+
+account for mongodb 
+google account email --->       pass68011@gmail.com
+password -------------->        product123
+login via google account after logging to above google account
+
+
+mongogb-->username      product
+passward      123
