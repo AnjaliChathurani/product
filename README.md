@@ -10,7 +10,7 @@ in a config folder there is key file.it has mongourl
 
 model folder-->productSchema
 
-routes-->all routes
+in routes/api folder-->all routes
 
 server.js-->connect mongodb
 
