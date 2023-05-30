@@ -1,0 +1,32 @@
+.containerx {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .card-custom-wide {
+    margin: 50px auto;
+    overflow: hidden;
+    border: 0;
+    width: 60%;
+    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  }
+  
+  .card-custom-wide .card-custom-avatar img {
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+  }
+  
+  .titled {
+    margin: 20px 10px 10px 15px;
+    text-align: left;
+  }
+  
