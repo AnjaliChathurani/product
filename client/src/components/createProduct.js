@@ -85,7 +85,7 @@ export default class createProduct extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <h1 className="title">Create New User</h1>
+        <h1 className="title">Create New Product</h1>
         <form className="needs-validation" noValidate>
           <div className="form-group">
             <input
