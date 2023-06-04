@@ -16,7 +16,7 @@ describe("ProductDetails component", () => {
         price: 1000,
         category: "ladies",
       },
-      // Add more mock products if needed
+      
     ];
     console.log(mockProducts);
 

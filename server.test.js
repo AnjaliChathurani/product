@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const request = require('supertest');
 const express = require('express');
-const router = require('../mernstack/routes/api/products'); // Replace with the actual path to your router file
+const router = require('../mernstack/routes/api/products'); 
 
 const app = express();
 app.use('/', router);
@@ -76,7 +76,7 @@ describe('Product API', () => {
 
   // Test DELETE /api/products/:id
   it('should delete a specific product', (done) => {
-    const productId = 'your-product-id'; // Replace with an existing product ID
+    const productId = 'product-id'; // Replace with an existing product ID
 
     request(app)
       .delete(`/api/products/${productId}`)

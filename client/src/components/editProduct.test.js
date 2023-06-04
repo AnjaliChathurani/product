@@ -5,8 +5,6 @@ import EditProduct from "./editProduct";
 import request from "supertest";
 import app from "./app";
 
-// Rest of your test code...
-
 jest.mock("axios");
 
 describe("EditProduct Component", () => {
