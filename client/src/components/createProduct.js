@@ -13,7 +13,7 @@ class createProduct extends Component {
       quantity: "",
       price: "",
       category: "",
-      errors: {}, // Initialize the errors objec
+      errors: {},
     };
   }
 
