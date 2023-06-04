@@ -1,54 +1,106 @@
 import React, { Component } from "react";
-
 import axios from "axios";
-import "./productList.css";
+import { withRouter } from "react-router-dom";
 
-export default class productList extends Component {
+class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = { product: {} };
+    this.state = {
+      products: [],
+    };
   }
 
   componentDidMount() {
-    console.log("param", this.props.match.params.id);
-    const id = this.props.match.params.id;
+    this.Products();
+  }
+  onEdit = (id) => {
+    const { history } = this.props;
+    history.push(`/edit/${id}`);
+  };
+
+  Products() {
     axios
-      .get(`http://localhost:8000/api/products/${id}`)
+      .get("http://localhost:8000/api/products")
       .then((response) => {
-        console.log("test2", response.data);
+        console.log("test", response.data.existingProduct);
         if (response.data.success) {
           this.setState({
-            product: response.data.products,
+            products: response.data.existingProduct,
           });
-          console.log(this.state.product);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  onDelete = (id) => {
+    axios.delete(`http://localhost:8000/api/products/${id}`).then((res) => {
+      this.setState((prevState) => ({
+        products: prevState.products.filter((products) => products._id !== id),
+      }));
+    });
+  };
 
   render() {
-    const { name, description, quantity, price, category } = this.state.product;
     return (
-      <div className="containerx">
-        <div className="card card-custom-wide">
-          <h3 className="titled">{name}</h3>
-          <hr />
-          <div className="card-body">
-            <dl className="row">
-              <dt className="col-sm-3">Description</dt>
-              <dd className="col-sm-9">{description}</dd>
-              <dt className="col-sm-3">Quantity</dt>
-              <dd className="col-sm-9">{quantity}</dd>
-              <dt className="col-sm-3">price</dt>
-              <dd className="col-sm-9">{price}</dd>
-              <dt className="col-sm-3">Category </dt>
-              <dd className="col-sm-9">{category}</dd>
-            </dl>
-          </div>
-        </div>
+      <div className="container">
+        <h1 className="titlep">Product Details</h1>
+        <br />
+        <table className="table table-hover">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.products.map((product, index) => (
+              <tr KEY={index}>
+                <th scope="row">{index + 1}</th>
+                <td>
+                  <a
+                    href={`/productList/${product._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    {product.name}
+                  </a>
+                </td>
+                <td>{product.description}</td>
+                <td>{product.quantity}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>
+                  <button
+                    className="btn btn-light"
+                    onClick={() => this.onEdit(product._id)}
+                  >
+                    <i className="fas fa-edit"></i>&nbsp;Edit
+                  </button>
+                  &nbsp;
+                  <a
+                    className="btn btn-danger"
+                    href="#"
+                    onClick={() => this.onDelete(product._id)}
+                  >
+                    <i className="far fa-trash-alt"></i>&nbsp;
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button className="btn btn-success">
+          <a href="/add" style={{ textDecoration: "none", color: "white" }}>
+            Add Product
+          </a>
+        </button>
       </div>
     );
   }
 }
+export default withRouter(ProductList);

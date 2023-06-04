@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Product_details from "./components/Product_details";
+import ProductDetails from "./components/productDetails";
 import CreateProduct from "./components/createProduct";
 import EditProduct from "./components/editProduct";
 import ProductList from "./components/productList";
@@ -11,7 +11,7 @@ function App() {
       <AppNavbar />
       <Switch>
         <Route path="/" exact>
-          <Product_details />
+          <ProductList />
         </Route>
         <Route path="/add" exact>
           <CreateProduct />
@@ -22,7 +22,7 @@ function App() {
         />
         <Route
           path="/productList/:id"
-          render={(props) => <ProductList {...props} />}
+          render={(props) => <ProductDetails {...props} />}
         />
       </Switch>
     </Router>

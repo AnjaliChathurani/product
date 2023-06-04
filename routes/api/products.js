@@ -10,6 +10,8 @@ const products = require("../../models/products");
 // save products
 router.post("/api/products", (req, res) => {
   const newProduct = new Products(req.body);
+  console.log("entered data", req.body);
+  //console.log(" newProduct", newProduct);
   newProduct.save((err) => {
     if (err) {
       return res.status(400).json({
@@ -74,15 +76,17 @@ router.put("/api/products/:id", (req, res) => {
       });
     }
   );
+  console.log("check update now", req.body);
+  console.log("check update params id", req.params.id);
 });
 
 // delete product
 
 router.delete("/api/products/:id", (req, res) => {
   Products.findByIdAndRemove(req.params.id).exec((err, deletedProduct) => {
-    if (err)
-      return res.status(400).json({
-        message: "Delete Unsuccessfull",
+    if (!deletedProduct)
+      return res.status(404).json({
+        message: "Product not found",
         err,
       });
 

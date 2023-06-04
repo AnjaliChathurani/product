@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./create.css";
+import { withRouter } from "react-router-dom";
 
-export default class editProduct extends Component {
+class editProduct extends Component {
   constructor(props) {
     super(props);
 
@@ -12,6 +13,7 @@ export default class editProduct extends Component {
       quantity: "",
       price: "",
       category: "",
+      errors: {},
     };
   }
 
@@ -29,7 +31,33 @@ export default class editProduct extends Component {
 
     const id = this.props.match.params.id;
     const { name, description, quantity, price, category } = this.state;
+    const errors = {};
 
+    // Perform validation
+    if (!name) {
+      errors.name = "Please enter a name";
+    }
+
+    if (!description) {
+      errors.description = "Please enter a description";
+    }
+
+    if (!quantity || isNaN(quantity) || quantity <= 0) {
+      errors.quantity = "Please enter a valid quantity";
+    }
+
+    if (!price || isNaN(price) || price <= 0) {
+      errors.price = "Please enter a valid price";
+    }
+
+    if (!category) {
+      errors.category = "Please select a category";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      this.setState({ errors });
+      return;
+    }
     const data = {
       name: this.state.name,
       description: this.state.description,
@@ -50,6 +78,7 @@ export default class editProduct extends Component {
         });
         console.log("posted data", this.state);
       }
+      this.props.history.push("/");
     });
   };
   componentDidMount() {
@@ -75,6 +104,7 @@ export default class editProduct extends Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="container">
         <h1 className="title">Edit Product</h1>
@@ -89,6 +119,7 @@ export default class editProduct extends Component {
               value={this.state.name}
               onChange={this.handleInputChange}
             />
+            {errors.name && <div className="text-danger">{errors.name}</div>}
           </div>
           <div className="form-group">
             <label>Description</label>
@@ -100,6 +131,9 @@ export default class editProduct extends Component {
               value={this.state.description}
               onChange={this.handleInputChange}
             />
+            {errors.description && (
+              <div className="text-danger">{errors.description}</div>
+            )}
           </div>
           <div className="form-group">
             <label className="label">Quantity</label>
@@ -111,6 +145,9 @@ export default class editProduct extends Component {
               value={this.state.quantity}
               onChange={this.handleInputChange}
             />
+            {errors.quantity && (
+              <div className="text-danger">{errors.quantity}</div>
+            )}
           </div>
           <div className="form-group">
             <label>Price</label>
@@ -122,6 +159,7 @@ export default class editProduct extends Component {
               value={this.state.price}
               onChange={this.handleInputChange}
             />
+            {errors.price && <div className="text-danger">{errors.price}</div>}
           </div>
           <div className="form-group">
             <label>Category</label>
@@ -133,6 +171,9 @@ export default class editProduct extends Component {
               value={this.state.category}
               onChange={this.handleInputChange}
             />
+            {errors.category && (
+              <div className="text-danger">{errors.category}</div>
+            )}
           </div>
           <br />
           <button
@@ -147,3 +188,4 @@ export default class editProduct extends Component {
     );
   }
 }
+export default withRouter(editProduct);

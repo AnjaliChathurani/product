@@ -29,7 +29,6 @@ mongoose
 //app.use("/api/products", productRoutes);
 app.use(productRoutes);
 
-
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -10,6 +10,7 @@ import {
   Container,
 } from "reactstrap";
 import "./nav.css";
+import { Link } from "react-router-dom";
 class AppNavbar extends Component {
   state = {
     isOpen: false,
@@ -21,7 +22,7 @@ class AppNavbar extends Component {
   };
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-d bg-light">
         <button
           className="navbar-toggler"
           type="button"
@@ -36,9 +37,9 @@ class AppNavbar extends Component {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 Product
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

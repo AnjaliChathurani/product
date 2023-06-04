@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./create.css";
+import { withRouter } from "react-router-dom";
 
-export default class createProduct extends Component {
+class createProduct extends Component {
   constructor(props) {
     super(props);
 
@@ -67,7 +68,8 @@ export default class createProduct extends Component {
     };
 
     axios.post("http://localhost:8000/api/products", data).then((res) => {
-      if (res.data.success) {
+      if (res.data) {
+        console.log("posted data", res);
         this.setState({
           name: "",
           description: "",
@@ -76,7 +78,10 @@ export default class createProduct extends Component {
           category: "",
           errors: {}, // Clear the errors object
         });
-        console.log("posted data", res.data);
+        // Redirect to the product list page
+        this.props.history.push("/");
+        console.log("test11", name);
+        this.props.Products();
       }
     });
   };
@@ -85,7 +90,7 @@ export default class createProduct extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <h1 className="title">Create New User</h1>
+        <h1 className="title">Create New Product</h1>
         <form className="needs-validation" noValidate>
           <div className="form-group">
             <input
@@ -136,7 +141,6 @@ export default class createProduct extends Component {
             {errors.price && <div className="text-danger">{errors.price}</div>}
           </div>
           <div className="form-group">
-            {errors.category && <div className="error">{errors.category}</div>}
             <input
               type="text"
               className="form-control"
@@ -162,3 +166,4 @@ export default class createProduct extends Component {
     );
   }
 }
+export default withRouter(createProduct);
